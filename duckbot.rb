@@ -38,10 +38,14 @@ words = [
 
 # Longer replies for @mentions
 responses = [
-  "who would summon the duck, her dark wings spread wide to envelop the cowering earth?",
+  "quack","quack","quack","quack","quack","quack quack",
+  "her dark wings spread wide to envelop the cowering earth",
+  "quack","quack","quack","quack","quack","quack quack",
   "the duck's bill opens, and her quack shakes the earth's foundation",
+  "quack","quack","quack","quack","quack","quack quack",
   "like a ragged blade, the duck's great shadow splits the water's surface",
-  "the dreadful padding of her feet echoes in your chest",
+  "quack","quack","quack","quack","quack","quack quack",
+  "the dreadful padding of her feet echoes across the ages",
   "quack","quack","quack","quack","quack","quack quack",
   "quack quack quack"
 ]
@@ -51,7 +55,8 @@ responses = [
 # --------------------------------------------------------- #
 
 # Quack
-def quack(event,message="quack")
+def quack(event,message=nil)
+  message ||= rot13(responses.sample)
   event.respond(Zalgo.he_comes(message)) # respond
 end
 
@@ -71,12 +76,13 @@ end
 # Login
 bot = Discordrb::Bot.new CONFIG["email"], CONFIG["password"]
 
+# set game
+bot.game(Zalgo.he_comes("on your fears"))
+
 # Respond to messages
 bot.message(containing: words) do |event|
-  roll = rand(100)+1
-  if roll == 100
-    quack(event,"QUACK QUACK QUACK")
-  elsif roll >= 90
+  roll = rand(1000)+1
+  if roll > 950
     quack(event)
   end
 end
