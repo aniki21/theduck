@@ -55,8 +55,7 @@ responses = [
 # --------------------------------------------------------- #
 
 # Quack
-def quack(event,message=nil)
-  message ||= rot13(responses.sample)
+def quack(event,message="quack")
   event.respond(Zalgo.he_comes(message)) # respond
 end
 
@@ -74,27 +73,25 @@ end
 # --------------------------------------------------------- #
 
 # Login
-bot = Discordrb::Bot.new CONFIG["email"], CONFIG["password"]
+bot = Discordrb::Bot.new token: CONFIG["token"], application_id: CONFIG["application_id"]
 
-# set game
-bot.game(Zalgo.he_comes("on your fears"))
 
 # Respond to messages
 bot.message(containing: words) do |event|
   roll = rand(1000)+1
   if roll > 950
-    quack(event)
+    quack(event,rot13(responses.sample))
   end
 end
 
 # Test Channel responses
 bot.message(in: "#ducktest") do |event|
-  quack(event)
+  quack(event,rot13(responses.sample))
 end
 
 # Respond to mentions
 bot.mention() do |event|
-  event.respond(Zalgo.he_comes(rot13(responses.sample)))
+  quack(event,rot13(responses.sample))
 end
 
 # Respond to PMs
@@ -110,6 +107,8 @@ begin
   puts "---"
   puts "#{Time.now.strftime("%Y-%m-%d %H:%M:%S")} -- Starting "
   bot.run
+  # set game
+  bot.game = "on your fears"
 rescue Exception => e
   puts "#{Time.now.strftime("%Y-%m-%d %H:%M:%S")} -- #{e.message}"
   retry
