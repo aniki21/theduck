@@ -75,6 +75,10 @@ end
 # Login
 bot = Discordrb::Bot.new token: CONFIG["token"], application_id: CONFIG["application_id"]
 
+# Startup
+bot.ready() do |event|
+  bot.game = "on your fears"
+end
 
 # Respond to messages
 bot.message(containing: words) do |event|
@@ -107,8 +111,6 @@ begin
   puts "---"
   puts "#{Time.now.strftime("%Y-%m-%d %H:%M:%S")} -- Starting "
   bot.run
-  # set game
-  bot.game = "on your fears"
 rescue Exception => e
   puts "#{Time.now.strftime("%Y-%m-%d %H:%M:%S")} -- #{e.message}"
   retry
