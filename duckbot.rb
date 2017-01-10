@@ -11,7 +11,7 @@ CONFIG = YAML.load_file(File.join(__dir__,"config.yml"))
 
 # What're we listening for?
 words = [
-  "duck","Duck","DUCK",
+  "duck","Duck","DUCK",":duck:","🦆",
   "quack","Quack","QUACK",
   "bird","Bird","BIRD",
   "fly","Fly","FLY",
