@@ -73,7 +73,7 @@ end
 # --------------------------------------------------------- #
 
 # Login
-bot = Discordrb::Bot.new token: CONFIG["token"], application_id: CONFIG["application_id"]
+bot = Discordrb::Bot.new token: CONFIG["token"], client_id: CONFIG["application_id"]
 
 # Startup
 bot.ready() do |event|
